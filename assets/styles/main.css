@@ -1,0 +1,7 @@
+@import './fontiran.css';
+
+*,
+*::before,
+*::after {
+  font-family: iranyekan !important;
+}
