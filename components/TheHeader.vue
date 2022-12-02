@@ -15,9 +15,9 @@
     <AppBtn
       color="white"
       class="hidden md:block mr-auto py-1 px-8 xl:py-4 xl:px-16"
-      :class="`${loginBtnText === 'ورود' ? '' : '!text-red !border-red' }`"
+      :class="`${loginBtnText === 'ورود' ? '' : '!text-red !border-red'}`"
       @click="openLogin"
-      >{{loginBtnText}}</AppBtn
+      >{{ loginBtnText }}</AppBtn
     >
 
     <button class="md:hidden mr-auto">
@@ -38,9 +38,10 @@
     >
       <AppBtn
         color="white"
-        class="hidden md:block mr-auto py-1 px-8 xl:py-4 xl:px-16"
+        class="py-1 px-8 mb-10"
+        :class="`${loginBtnText === 'ورود' ? '' : '!text-red !border-red'}`"
         @click="openLogin"
-        >{{loginBtnText}}</AppBtn
+        >{{ loginBtnText }}</AppBtn
       >
       <ul class="flex flex-col gap-5 items-center">
         <li @click="showDrawer = false"><NuxtLink to="/">خانه</NuxtLink></li>
@@ -81,11 +82,9 @@ const closeLogin = () => {
   showLogin.value = false
 }
 
-
 onMounted(async () => {
   const token = await getToken()
   loginBtnText.value = token ? 'خروج' : 'ورود'
-
 })
 </script>
 

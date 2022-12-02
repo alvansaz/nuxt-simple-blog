@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="flex items-center md:text-xl">
+  <div class="pb-52">
+    <div class="flex items-center md:text-xl ">
       <span> خانه </span>
       <span>
         <ChevronLeftIcon />
@@ -28,27 +28,29 @@
     </div>
     <div class="flex flex-col xl:flex-row justify-between xl:gap-8 2xl:gap-16 items-start">
       <div
-        class="flex flex-col mx-auto px-5 py-8 rounded-2xl gap-5 mb-32 shadow-category-box w-full max-w-xs"
+        class="flex flex-col mx-auto px-5 py-8 rounded-2xl mb-32 shadow-category-box w-full xl:max-w-xs"
       >
-        <h3 class="font-bold text-lg md:text-[22px]">دسته‌بندی</h3>
-        <label
-          class="justify-between md:text-lg flex items-center text-[#7B7B7B]"
-          v-for="category in postCategories"
-          :key="category.id"
-        >
-          <span class="cursor-pointer"> {{ category.name }} </span>
-          <input
-            v-model="categoriesFilters"
-            class="checkbox appearance-none w-0 h-0"
-            type="checkbox"
-            :value="category.name"
-          />
-          <div
-            class="w-7 flex justify-center items-center aspect-square border-2 border-solid border-[#7B7B7B] rounded-md"
+        <h3 class="font-bold mb-7 text-lg md:text-[22px]">دسته‌بندی</h3>
+        <div class="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-1">
+          <label
+            class="justify-between md:text-lg flex items-center text-[#7B7B7B]"
+            v-for="category in postCategories"
+            :key="category.id"
           >
-            <CheckIcon class="opacity-0 cursor-pointer text-green" />
-          </div>
-        </label>
+            <span class="cursor-pointer"> {{ category.name }} </span>
+            <input
+              v-model="categoriesFilters"
+              class="checkbox appearance-none w-0 h-0"
+              type="checkbox"
+              :value="category.name"
+            />
+            <div
+              class="w-7 flex justify-center items-center aspect-square border-2 border-solid border-[#7B7B7B] rounded-md"
+            >
+              <CheckIcon class="opacity-0 cursor-pointer text-green" />
+            </div>
+          </label>
+        </div>
       </div>
 
       <div class="flex flex-col gap-14 items-center mx-auto lg:mx-0">
