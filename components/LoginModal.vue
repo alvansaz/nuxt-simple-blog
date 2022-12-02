@@ -9,7 +9,7 @@
       <h2 class="font-medium text-2xl lg:text-3xl 2xl:text-5xl pb-10 xl:pb-12">
         ورود به حساب کاربری
       </h2>
-      <form class="xl:w-3/12">
+      <form class="xl:w-3/12" @submit.prevent="login">
         <label class="lg:text-lg block mb-2">نام کاربری</label>
         <div
           class="mx-auto rounded-2xl p-4 border-solid border-gray border-1 flex items-center gap-3 mb-6"
@@ -21,7 +21,7 @@
             name="search"
             @focus="activeUsernameInput = true"
             @blur="activeUsernameInput = false"
-            v-model="username"
+            v-model="userName"
             placeholder="نام کاربری خود را وارد کنید"
             class="caret-green flex-grow border-none outline-none"
           />
@@ -44,11 +44,9 @@
           />
         </div>
 
-        <AppBtn
-          color="green"
-          btn-type="submit"
-          class="w-full py-4 mt-4 xl:mt-7"
-          @click.prevent="login"
+        <p class="text-red">{{ loginError }}</p>
+
+        <AppBtn color="green" btn-type="submit" class="w-full py-4 mt-4 xl:mt-7"
           >ورود</AppBtn
         >
       </form>
@@ -65,34 +63,36 @@ const { onLogin } = useApollo()
 
 const activeUsernameInput = ref(false)
 const activePasswordInput = ref(false)
-const username = ref('')
+const userName = ref('')
 const password = ref('')
+const loginError = ref('')
 
-// const userLoginQuery = gql`
-//   mutation userLogin($inputs: UserLoginInput) {
-//     userLogin(inputs: $inputs) {
-//       _id
-//     }
-//   }
-// `
-const userLoginQuery = gql`
-  mutation {
-    userLogin(inputs: { username: $username, password: $password }) {
-      _id
+const userLoginMutation = gql`
+  mutation userLogin($inputs: UserLoginInput) {
+    userLogin(inputs: $inputs) {
+      token {
+        accessToken
+      }
     }
   }
 `
 
-const login = () => {
+const login = async () => {
   const variables = {
-    username: username.value,
-    password: password.value,
+    inputs: {
+      userName: userName.value,
+      password: password.value,
+    },
   }
 
-  console.log(username.value)
-  console.log(password.value)
-
-  const { userLoginData } = useMutation(userLoginQuery, variables)
-  setTimeout(() => console.log(userLoginData), 3000)
+  try {
+    const { mutate, error } = useMutation(userLoginMutation, variables)
+    const data = await mutate(variables)
+    onLogin(data.data.userLogin.token.accessToken)
+    location.reload()
+  } catch (error) {
+    loginError.value = error
+    console.error(error)
+  }
 }
 </script>

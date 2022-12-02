@@ -7,7 +7,7 @@
       />
     </div>
     <div>
-      <h2 class="text-lg text-[#373737] font-medium mb-4 md:mb-9">
+      <h2 class="text-lg text-[#373737] font-medium mb-4 md:mb-7">
         {{ title }}
       </h2>
       <p
@@ -21,7 +21,7 @@
         سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای
       </p>
       <div class="flex flex-col 2xl:flex-row 2xl:items-center">
-        <div class="flex gap-5 2xl:gap-14 mb-7 2xl:mb-0 items-center">
+        <div class="flex gap-5 2xl:gap-14 mb-7 lg:mb-0 2xl:mb-0 items-center">
           <div class="flex items-center gap-1">
             <span><CalendarIcon /></span>
             <span class="text-sm font-light">{{

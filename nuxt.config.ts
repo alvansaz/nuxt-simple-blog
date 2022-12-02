@@ -58,6 +58,10 @@ export default defineNuxtConfig({
     clients: {
       default: {
         httpEndpoint: 'https://challenge.webjar.ir/graphql',
+        tokenName: 'apollo-token',
+        authType: 'Bearer',
+        authHeader: 'Authorization',
+        tokenStorage: 'cookie',
       },
     },
   },

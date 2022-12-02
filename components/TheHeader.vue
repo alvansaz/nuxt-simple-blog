@@ -15,8 +15,9 @@
     <AppBtn
       color="white"
       class="hidden md:block mr-auto py-1 px-8 xl:py-4 xl:px-16"
+      :class="`${loginBtnText === 'ورود' ? '' : '!text-red !border-red' }`"
       @click="openLogin"
-      >ورود</AppBtn
+      >{{loginBtnText}}</AppBtn
     >
 
     <button class="md:hidden mr-auto">
@@ -39,7 +40,7 @@
         color="white"
         class="hidden md:block mr-auto py-1 px-8 xl:py-4 xl:px-16"
         @click="openLogin"
-        >ورود</AppBtn
+        >{{loginBtnText}}</AppBtn
       >
       <ul class="flex flex-col gap-5 items-center">
         <li @click="showDrawer = false"><NuxtLink to="/">خانه</NuxtLink></li>
@@ -66,8 +67,11 @@
 import AppBtn from '@/components/AppBtn.vue'
 import LoginModal from '@/components/LoginModal.vue'
 
+const { getToken } = useApollo()
+
 const showDrawer = ref(false)
 const showLogin = ref(false)
+const loginBtnText = ref('ورود')
 
 const openLogin = () => {
   showLogin.value = true
@@ -76,6 +80,13 @@ const openLogin = () => {
 const closeLogin = () => {
   showLogin.value = false
 }
+
+
+onMounted(async () => {
+  const token = await getToken()
+  loginBtnText.value = token ? 'خروج' : 'ورود'
+
+})
 </script>
 
 <style scoped>
